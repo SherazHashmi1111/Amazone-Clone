@@ -1,10 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Molle&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss";
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
-body{
+body {
   background-color: #333;
   color: #fefefe;
+}
+.lobster{
+  font-family: Lobster ;
+}
+.roboto{
+  font-family: Roboto;
+}
+.p-top-bot{
+  padding: 4rem 0 ;
+}
+.hero-section::after{
+ content: "";
+ width: 100vw;
+ height: 100vh;
+ background-color: white;
+ position: absolute;
+ top: 0;
+ left: 0;
+ clip-path: polygon(100% 78%, 0 100%, 100% 100%);
+ max-width: 100%;
 }
