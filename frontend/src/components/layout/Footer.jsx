@@ -22,7 +22,7 @@ function Footer() {
       <div className="text-center mt-6 md:mt-0 flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-red-500">ECOMMERCE.</h1>
         <p className="text-xs mt-1">High Quality is our first priority</p>
-        <p className="text-xs">Copyrights 2021 © MeAbhiSingh</p>
+        <p className="text-xs">Copyrights 2021 © MeSherazHashmi</p>
       </div>
 
       {/* Social Media Links */}
