@@ -70,3 +70,6 @@ body {
 }
 .pageItemActive{background-color: tomato; color: white;}
 .pageLinkActive{color: white;}
+.reviews{
+  padding: 4rem;
+}

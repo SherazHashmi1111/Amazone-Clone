@@ -26,7 +26,7 @@ function ProductDetails() {
 
   return (
     <Fragment>
-      <div className="w-full bg-gray-300 text-black flex justify-center p-top-bot">
+      <div className="w-full bg-white text-black flex justify-center p-top-bot">
         <div className="w-[50vw] flex flex-col items-center justify-center md:flex-row">
           <div className="w-full h-[60vh] border-2 p-small border-white flex items-center justify-center">
             <Carousel
@@ -120,6 +120,8 @@ function ProductDetails() {
                   type="number"
                   className="w-12 h-8 bg-amber-900 text-center text-white text-2xl rounded-xl"
                   defaultValue={0}
+                  max={5}
+                  min={0}
                 />
                 <button className="w-15 h-8 rounded text-white text-xl bg-amber-900">
                   -
@@ -142,6 +144,8 @@ function ProductDetails() {
           </div>
         </div>
       </div>
+      <div className="bg-white reviews">
+              <h2 className="text-black text-center text-5xl font-bold">Honest Reviews</h2>
       <h3>Reviews Heading</h3>
       {product.reviews && product.reviews[0] ? (
         <div className="">
@@ -151,8 +155,9 @@ function ProductDetails() {
             ))}
         </div>
       ) : (
-        <p className="">No Reviews Yet</p>
+        <p className="text-black text-center text-2xl font-bold">No Reviews Yet</p>
       )}
+      </div>
     </Fragment>
   );
 }

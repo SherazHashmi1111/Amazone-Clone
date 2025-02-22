@@ -9,14 +9,14 @@ export const fetchProducts = createAsyncThunk(
     return response.data; // Assuming response.data is an array of products
   }
 );
-
+ 
 // Define an async thunk for searching products by keyword
 export const fetchProduct = createAsyncThunk(
   "products/fetchProduct",
-  async ({ keyword = "", page }) => {
-
+  async ({ keyword = "", page ,price}) => {
+    
     const response = await axios.get(
-      `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${page}`
+      `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${page}&price[gte]=${price[0]}&price[lte]=${price[1]}`
     );
     return response.data; // Assuming response.data is an array of products
   }
