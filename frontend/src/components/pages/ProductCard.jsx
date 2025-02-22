@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom'
 const ProductCard = (product) => {
   const productDetail = product.product;
-console.log(productDetail);
 
   // imgUrl = productDetail
   const imgUrl = productDetail.images.map((img) => img.url);

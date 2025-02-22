@@ -11,23 +11,62 @@ body {
   background-color: #333;
   color: #fefefe;
 }
-.lobster{
-  font-family: Lobster ;
+.lobster {
+  font-family: Lobster;
 }
-.roboto{
+.roboto {
   font-family: Roboto;
 }
-.p-top-bot{
-  padding: 4rem 0 ;
+.p-top-bot {
+  padding: 4rem 0;
 }
-.hero-section::after{
- content: "";
- width: 100vw;
- height: 100vh;
- background-color: white;
- position: absolute;
- top: 0;
- left: 0;
- clip-path: polygon(100% 78%, 0 100%, 100% 100%);
- max-width: 100%;
+.p-small {
+  padding: 1rem;
 }
+.p-big {
+  padding: 4rem;
+}
+.p-left-right {
+  padding: 0 4rem;
+}
+.hero-section::after {
+  content: "";
+  width: 100vw;
+  height: 92vh;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  clip-path: polygon(100% 78%, 0 100%, 100% 100%);
+  max-width: 100%;
+}
+.pagination-box {
+  display: flex;
+  justify-content: center;
+  margin: 6vmax;
+  color: #333;
+}
+.pagination {
+  display: flex;
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+.page-item {
+  list-style: none;
+  border: 1px solid black;
+  width: 6rem;
+  text-align: center;
+  transition: all 0.4s;
+}
+.page-item:first-child {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+.page-item:last-child {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.page-item:hover {
+  background-color: tomato;
+  color: #fff;
+}
+.pageItemActive{background-color: tomato; color: white;}
+.pageLinkActive{color: white;}
