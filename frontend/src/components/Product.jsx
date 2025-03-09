@@ -4,6 +4,9 @@ import { Bar, Foo } from "./UI/StarRatings";
 import { Link } from "react-router-dom";
 
 function Product({ products }) {
+  if (products === undefined) {
+    return;
+  }
   return (
     <Fragment>
       {products.map((product) => (
@@ -24,9 +27,9 @@ function Product({ products }) {
           <p className=" font-semibold text-orange-600">
             Price: ${product.price}
           </p>
-          <Link >
-          <Button>Product Details</Button>
-          </Link>
+          <a href={`/product/${product._id}`}>
+            <Button>Product Details</Button>
+          </a>
         </div>
       ))}
     </Fragment>

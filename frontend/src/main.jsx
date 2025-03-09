@@ -1,17 +1,19 @@
-import { createRoot } from 'react-dom/client';
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-import './index.css';
-import App from './App.jsx';
+import { createRoot } from "react-dom/client";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store.jsx";
+import "./index.css";
+import App from "./App.jsx";
 
-createRoot(document.getElementById('root')).render(
+import { ThemeProvider } from "@material-tailwind/react";
+
+createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-    </Provider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
   </React.StrictMode>
 );

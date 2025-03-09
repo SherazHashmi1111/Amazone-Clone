@@ -7,6 +7,7 @@ import WebFont from "webfontloader";
 import "./index.css";
 import Search from "./pages/Search";
 import  AllProducts from "./pages/AllProducts.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
 
 function App() {
   useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
         <Route path="/products" element={<AllProducts />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
       <Footer />
     </Fragment>

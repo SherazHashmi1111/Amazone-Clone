@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../store";
+import { getAllProducts } from "../store/ProductsSlice";
 import Loader from "./layout/Loader";
 import Alert from '@mui/material/Alert';
 
@@ -18,7 +18,6 @@ function Products() {
       }
         dispatch(getAllProducts());
     }, [dispatch, error]);
-    
     
     
     

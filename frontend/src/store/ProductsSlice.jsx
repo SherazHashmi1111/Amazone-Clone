@@ -1,8 +1,4 @@
-import {
-  configureStore,
-  createSlice,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // API Base URL
@@ -22,18 +18,17 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+
 // Initial state
-const initialState = {
+const initialProductsState = {
   products: [],
   loading: false,
   error: null,
   productCount: 0,
 };
-
-// Create product slice
 const productSlice = createSlice({
   name: "products",
-  initialState,
+  initialState: initialProductsState,
   reducers: {}, // No need for empty `getProducts`
   extraReducers: (builder) => {
     builder
@@ -54,11 +49,4 @@ const productSlice = createSlice({
   },
 });
 
-// Configure store
-const store = configureStore({
-  reducer: {
-    products: productSlice.reducer,
-  },
-});
-
-export default store;
+export default productSlice.reducer;
