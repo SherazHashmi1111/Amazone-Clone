@@ -8,6 +8,8 @@ import "./index.css";
 import Search from "./pages/Search";
 import  AllProducts from "./pages/AllProducts.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
+import Contact from "./pages/Contact.jsx";
+import About from "./pages/About.jsx";
 
 function App() {
   useEffect(() => {
@@ -26,6 +28,8 @@ function App() {
         <Route exact path="/products" element={<AllProducts />} />
         <Route path="/products/:keyword" element={<AllProducts />} />
         <Route exact path="/product/:id" element={<ProductDetails />} />
+        <Route exact path="/contact" element={<Contact />} />
+        <Route exact path="/about" element={<About />} />
       </Routes>
       <Footer />
     </Fragment>

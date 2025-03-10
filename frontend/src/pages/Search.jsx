@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../components/layout/MetaData";
 
 function Search() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Search() {
   };
   return (
     <div className="h-screen w-full flex  justify-center items-center ">
+      <MetaData title={`Search -- ECOMMERCE`} />
       <form
         action=""
         className="mx-auto flex  flex-col md:flex-row md:gap-0 gap-4 items-center"

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProductDetail } from "../store/ProductDetailSlice";
@@ -8,11 +8,34 @@ import { Bar, Foo } from "../components/UI/StarRatings";
 import Button from "../components/UI/Button";
 import ReviewCard from "../components/UI/ReviewCard.jsx";
 import Alert from "@mui/material/Alert";
+import MetaData from "../components/layout/MetaData.jsx";
 
 function ProductDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const id = params.id;
+  const [value, setValue] = useState(0); // Initial state
+
+  // Function to increase value
+  const incrementHandler = (e) => {
+    e.preventDefault();
+    setValue((prev) => (prev < 10 ? prev + 1 : prev)); // Max limit 10
+  };
+
+  // Function to decrease value
+  const decrementHandler = (e) => {
+    e.preventDefault();
+    setValue((prev) => (prev > 0 ? prev - 1 : prev)); // Min limit 0
+  };
+
+  // Function to handle manual input change
+  const inputChangeHandler = (e) => {
+    e.preventDefault();
+    let newValue = Number(e.target.value);
+    if (newValue >= 0 && newValue <= 10) {
+      setValue(newValue);
+    }
+  };
 
   const productDetail = useSelector((state) => state.product);
   const { product, loading, error } = productDetail;
@@ -40,6 +63,7 @@ function ProductDetails() {
           className="w-[90vw]   my-[10vh]  
         rounded-2xl m-auto flex md:flex-row-reverse flex-col-reverse  items-center border border-gray-300 shadow-xl"
         >
+          <MetaData title={`${product.name} -- ECOMMERCE`} />
           <div className="md:w-[75%] w-[90%] md:px-5  md:border-l-1 mb-5 md:mb-0 border-gray-300">
             <span className="text-2xl font-semibold">{name}</span>
             <p className="">
@@ -55,7 +79,10 @@ function ProductDetails() {
             <div className="">
               <form action="">
                 <div className="flex flex-col gap-1">
-                  <button className="bg-amber-800 cursor-pointer w-15 text-white rounded hover:bg-amber-800">
+                  <button
+                    onClick={incrementHandler}
+                    className="bg-amber-800 cursor-pointer w-15 text-white rounded hover:bg-amber-800"
+                  >
                     +
                   </button>
                   <input
@@ -63,11 +90,16 @@ function ProductDetails() {
                     min={0}
                     max={10}
                     step={1}
+                    value={value}
+                    onChange={inputChangeHandler}
                     type="number"
                     name=""
                     id=""
                   />
-                  <button className="bg-amber-900  cursor-pointer w-15 text-white rounded hover:bg-amber-900 ">
+                  <button
+                    onClick={decrementHandler}
+                    className="bg-amber-900  cursor-pointer w-15 text-white rounded hover:bg-amber-900 "
+                  >
                     -
                   </button>
                 </div>

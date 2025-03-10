@@ -30,13 +30,13 @@ function Navbar() {
             </NavLink>
           </li>
           <li >
-            <NavLink to="/services" className='hover:text-orange-800'>
-              Services
+            <NavLink to="/contact" className='hover:text-orange-800'>
+              Contact
             </NavLink>
           </li>
           <li >
-            <NavLink to="/contact" className='hover:text-orange-800'>
-              Contact
+            <NavLink to="/about" className='hover:text-orange-800'>
+              About
             </NavLink>
           </li>
         </ul>

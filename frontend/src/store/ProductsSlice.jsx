@@ -6,18 +6,23 @@ import axios from "axios";
 // Fetch products from API
 export const getAllProducts = createAsyncThunk(
   "products/fetchProducts",
-  async ({keyword = "",page  = 1}, { rejectWithValue }) => {
+  async ({ keyword = "", page = 1, value=[0, 10000], category } = {}, { rejectWithValue }) => {
+    let API_URL = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${page}&price[gte]=${value[0]}&price[lte]=${[value[1]]}`;
     
-    const API_URL = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${page}`;
+    if(category){
+       API_URL = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${page}&price[gte]=${value[0]}&price[lte]=${[value[1]]}&category=${category}`;
+
+    }
+    
     try {
       const response = await axios.get(API_URL);
-
-      return response.data; // Ensure API response matches expected structure
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
+
 
 // Initial state
 const initialProductsState = {
@@ -25,7 +30,8 @@ const initialProductsState = {
   loading: false,
   error: null,
   productCount: 0,
-  resultPerPage: 0
+  filterProductsCount:0,
+  resultPerPage:0
 };
 const productSlice = createSlice({
   name: "products",
@@ -42,6 +48,7 @@ const productSlice = createSlice({
         state.products = action.payload.products;
         state.productCount = action.payload.productCount;
         state.resultPerPage = action.payload.resultPerPage;
+        state.filterProductsCount = action.payload.filterProductsCount;
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.loading = false;
