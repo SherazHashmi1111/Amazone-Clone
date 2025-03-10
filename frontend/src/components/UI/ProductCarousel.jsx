@@ -18,7 +18,7 @@ function ProductCarousel({ images }) {
   return (
     <div className="overflow-hidden mx-auto relative">
       <div
-        className={"flex transition ease-out duration-400 w-full "}
+        className={"flex  transition ease-out duration-400 w-full "}
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {images.map((img, i) => (

@@ -21,7 +21,7 @@ const Foo = () => {
 
 const Bar = (props) => {
   return (
-    <StarRatings rating={props.rating || 2.403} starDimension="30px" starSpacing="5px" 
+    <StarRatings rating={props.rating || 2.403} starDimension={props.dimension || '30px'} starSpacing={props.spacing || '5px'} 
     starRatedColor="orange"
     starEmptyColor="gray"
     starHoverColor="orange"

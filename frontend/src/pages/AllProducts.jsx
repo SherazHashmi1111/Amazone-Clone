@@ -21,7 +21,7 @@ function AllProducts() {
         <div className="flex flex-col-reverse md:flex-row">
             <div className=" h-screen w-[20vw]  "></div>
 
-        <div className="w-[75%] ml-auto md:mr-6 m-auto grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+        <div className="w-[75%] ml-auto md:mr-6 m-auto grid grid-cols-3  gap-2 mt-5">
           <Product products={products} />
         </div>
         </div>
