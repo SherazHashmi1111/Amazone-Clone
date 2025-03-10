@@ -21,10 +21,11 @@ function App() {
     <Fragment>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/products" element={<AllProducts />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/search" element={<Search />} />
+        <Route exact path="/products" element={<AllProducts />} />
+        <Route path="/products/:keyword" element={<AllProducts />} />
+        <Route exact path="/product/:id" element={<ProductDetails />} />
       </Routes>
       <Footer />
     </Fragment>

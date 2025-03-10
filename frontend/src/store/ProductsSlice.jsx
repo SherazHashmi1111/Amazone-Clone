@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // API Base URL
-const API_URL = "http://localhost:4000/api/v1/products";
 
 // Fetch products from API
 export const getAllProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (_, { rejectWithValue }) => {
+  async ({keyword = "",page  = 1}, { rejectWithValue }) => {
+    
+    const API_URL = `http://localhost:4000/api/v1/products?keyword=${keyword}&page=${page}`;
     try {
       const response = await axios.get(API_URL);
 
@@ -18,13 +19,13 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
-
 // Initial state
 const initialProductsState = {
   products: [],
   loading: false,
   error: null,
   productCount: 0,
+  resultPerPage: 0
 };
 const productSlice = createSlice({
   name: "products",
@@ -39,8 +40,8 @@ const productSlice = createSlice({
       .addCase(getAllProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload.products;
-
         state.productCount = action.payload.productCount;
+        state.resultPerPage = action.payload.resultPerPage;
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.loading = false;
