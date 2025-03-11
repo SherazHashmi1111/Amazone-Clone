@@ -36,18 +36,18 @@ function Footer() {
             </li>
             <li>
               <Link
-                to={"/services"}
-                className="hover:underline hover:text-gray-300 cursor-pointer"
-              >
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link
                 to={"/contact"}
                 className="hover:underline hover:text-gray-300 cursor-pointer"
               >
                 Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/about"}
+                className="hover:underline hover:text-gray-300 cursor-pointer"
+              >
+                About
               </Link>
             </li>
           </ul>
