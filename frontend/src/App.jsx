@@ -10,6 +10,9 @@ import  AllProducts from "./pages/AllProducts.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import MyAccount from './pages/MyAccount.jsx'
 
 function App() {
   useEffect(() => {
@@ -24,6 +27,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/account" element={<MyAccount />} />
+        <Route exact path="/register" element={<Register />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/products" element={<AllProducts />} />
         <Route path="/products/:keyword" element={<AllProducts />} />

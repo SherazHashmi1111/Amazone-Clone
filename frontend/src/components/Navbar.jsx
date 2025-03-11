@@ -49,7 +49,7 @@ function Navbar() {
           <NavLink to="/cart">
           <FaCartPlus className="text-3xl cursor-pointer hover:text-orange-900" />
           </NavLink>
-          <NavLink to="/profile">
+          <NavLink to="/login">
           <CgProfile className="text-3xl cursor-pointer hover:text-orange-900"/>
           </NavLink>
         </div>
