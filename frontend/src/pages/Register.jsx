@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 function Register() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
-  console.log(loading);
 
   // console.log(loading,user,isAuthenticated,error);
 

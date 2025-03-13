@@ -6,14 +6,14 @@ import Footer from "./components/Footer";
 import WebFont from "webfontloader";
 import "./index.css";
 import Search from "./pages/Search";
-import  AllProducts from "./pages/AllProducts.jsx";
+import AllProducts from "./pages/AllProducts.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Contact from "./pages/Contact.jsx";
 import About from "./pages/About.jsx";
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
-import MyAccount from './pages/MyAccount.jsx'
-import store from './store/store.jsx'
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import MyAccount from "./pages/MyAccount.jsx";
+import store from "./store/store.jsx";
 import { loadUser } from "./store/UserSlice.jsx";
 
 function App() {
@@ -23,7 +23,9 @@ function App() {
         families: ["Roboto", "Droid Serif"],
       },
     });
-    store.dispatch(loadUser())
+    
+    
+    store.dispatch(loadUser());
   }, []);
   return (
     <Fragment>
