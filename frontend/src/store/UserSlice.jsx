@@ -27,27 +27,17 @@ export const loginUser = createAsyncThunk(
 );
 
 // Load user function
-// export const loadUser = createAsyncThunk(
-//   "user/load",
-//   async (_, { rejectWithValue }) => {
-//     const API_URL_DETAIL = "http://localhost:4000/api/v1/me";
-//     try {
-//       const response = await axios.get(API_URL_DETAIL, {
-//         withCredentials: true,
-//       }); // ✅ Change to GET
-//       return response.data; // Ensure API response matches expected structure
-//     } catch (error) {
-//       return rejectWithValue(error.response?.data?.message || error.message);
-//     }
-//   }
-// );
-
-
-
-
-
-
-
+export const loadUser = createAsyncThunk(
+  "user/load",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/api/v1/me"); // ✅ Change to GET
+      return response.data; // Ensure API response matches expected structure
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
 
 // Register user function
 const convertToBase64 = (file) => {
@@ -91,17 +81,6 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
-
-
-
-
-
-
-
-
-
-
-
 
 // Initial state
 const userState = {
@@ -147,20 +126,20 @@ const userSlice = createSlice({
         state.user = null;
         state.error = action.payload;
       })
-      // .addCase(loadUser.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
-      // .addCase(loadUser.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.isAuthenticated = true;
-      //   state.user = action.payload;
-      // })
-      // .addCase(loadUser.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.user = null;
-      //   state.error = action.payload;
-      // });
+      .addCase(loadUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loadUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+      })
+      .addCase(loadUser.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action.payload;
+      });
   },
 });
 export default userSlice.reducer;
