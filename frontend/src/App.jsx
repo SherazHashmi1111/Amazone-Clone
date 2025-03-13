@@ -13,6 +13,8 @@ import About from "./pages/About.jsx";
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import MyAccount from './pages/MyAccount.jsx'
+// import store from './store/store.jsx'
+// import { loadUser } from "./store/UserSlice.jsx";
 
 function App() {
   useEffect(() => {
@@ -21,6 +23,7 @@ function App() {
         families: ["Roboto", "Droid Serif"],
       },
     });
+    // store.dispatch(loadUser())
   }, []);
   return (
     <Fragment>

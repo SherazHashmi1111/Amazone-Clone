@@ -4,16 +4,20 @@ import { BiUser } from "react-icons/bi";
 import { AiOutlineUnlock } from "react-icons/ai";
 import avtarPreview from "../assets/img.png";
 import { registerUser } from "../store/UserSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Register() {
-    const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
+  console.log(loading);
+
+  // console.log(loading,user,isAuthenticated,error);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    // avatar: null,
+    avatar: null,
   });
 
   // Handle input change for text fields
@@ -26,18 +30,18 @@ function Register() {
   };
 
   // Handle file change
-  const handleFileChange = () => {
-    // const file = e.target.files[0];
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   avatar: file,
-    // }));
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      avatar: file,
+    }));
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     dispatch(registerUser(formData));
 
     // Clear all input fields after submission
@@ -45,13 +49,12 @@ function Register() {
       name: "",
       email: "",
       password: "",
-    //   avatar: null,
+      avatar: null,
     });
 
     // Clear file input manually
     document.getElementById("fileInput").value = "";
   };
-
   return (
     <div
       className="text-white h-[91vh] flex justify-center items-center bg-cover bg-center bg-no-repeat"
@@ -115,7 +118,11 @@ function Register() {
 
           {/* File Upload */}
           <div className="flex gap-2 text-[14px] mb-4">
-            <img src={avtarPreview} alt="Avatar Preview" className="w-10 bg-white rounded-[50%] p-1" />
+            <img
+              src={avtarPreview}
+              alt="Avatar Preview"
+              className="w-10 bg-white rounded-[50%] p-1"
+            />
             <div className="bg-white rounded flex items-center px-2 gap-2">
               <div className="flex items-center space-x-2">
                 <input
@@ -139,12 +146,18 @@ function Register() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300 cursor-pointer"
-          >
-            Register
-          </button>
+          {loading ? (
+            <button className="w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300 cursor-pointer">
+              Sending Data ..
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2 transition-colors duration-300 cursor-pointer"
+            >
+              Register
+            </button>
+          )}
 
           <div className="mt-4">
             <span className="mt-4">

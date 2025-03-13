@@ -3,8 +3,15 @@ const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const cloudinary = require("cloudinary");
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatar",
+    width: 150,
+    crop: "scale",
+  });
+
   const { name, email, password } = req.body;
 
   const user = await User.create({
@@ -12,8 +19,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     email,
     password,
     avatar: {
-      public_id: "public_id",
-      url: "profilePicUrl",
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
     },
   });
 
@@ -152,16 +159,15 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
   if (!isMatched) {
     return next(new ErrorHandler("Old password is incorrect", 400));
   }
-  if(req.body.newPassword !== req.body.confirmPassword) {
+  if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("Password does not match", 400));
   }
-  // Check if previous user password is correct 
+  // Check if previous user password is correct
   user.password = req.body.newPassword;
   await user.save();
 
   sendToken(user, 200, res);
 });
-
 
 // Update user profile => /api/v1/me/update
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
@@ -182,7 +188,6 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-
 // Get all users => /api/v1/admin/users
 exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
   const users = await User.find();
@@ -198,7 +203,9 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(new ErrorHandler(`User does not found with id: ${req.params.id}`));
+    return next(
+      new ErrorHandler(`User does not found with id: ${req.params.id}`)
+    );
   }
 
   res.status(200).json({
@@ -206,7 +213,6 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     user,
   });
 });
-
 
 // Update user Role --Admin => /api/v1/admin/user/:id
 exports.updateUser = catchAsyncErrors(async (req, res, next) => {
@@ -232,7 +238,9 @@ exports.updateUser = catchAsyncErrors(async (req, res, next) => {
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
-    return next(new ErrorHandler(`User does not found with id: ${req.params.id}`));
+    return next(
+      new ErrorHandler(`User does not found with id: ${req.params.id}`)
+    );
   }
 
   // Remove avatar from cloudinary - TODO

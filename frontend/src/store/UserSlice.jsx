@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// API Base URL
-const API_URL_DETAIL = "http://localhost:4000/api/v1/login";
-
 // Login user function
 export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email = "", password = "" } = {}, { rejectWithValue }) => {
     try {
+      // API Base URL
+      const API_URL_DETAIL = "http://localhost:4000/api/v1/login";
       const requestBody = {
         email: email,
         password: password,
@@ -26,26 +25,83 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-// Register user function
-const API_URL = "http://localhost:4000/api/v1/register"; // Replace with your actual backend API
 
+// Load user function
+// export const loadUser = createAsyncThunk(
+//   "user/load",
+//   async (_, { rejectWithValue }) => {
+//     const API_URL_DETAIL = "http://localhost:4000/api/v1/me";
+//     try {
+//       const response = await axios.get(API_URL_DETAIL, {
+//         withCredentials: true,
+//       }); // ✅ Change to GET
+//       return response.data; // Ensure API response matches expected structure
+//     } catch (error) {
+//       return rejectWithValue(error.response?.data?.message || error.message);
+//     }
+//   }
+// );
+
+
+
+
+
+
+
+
+// Register user function
+const convertToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
 export const registerUser = createAsyncThunk(
   "user/register",
   async (formData, { rejectWithValue }) => {
     try {
-      console.log(formData);
+      const API_URL = "http://localhost:4000/api/v1/register"; // Replace with your actual backend API
+      let requestBody = new FormData();
+      requestBody.append("name", formData.name);
+      requestBody.append("email", formData.email);
+      requestBody.append("password", formData.password);
 
-      const {data} = await axios.post(API_URL, formData, {
+      if (formData.avatar) {
+        const base64Avatar = await convertToBase64(formData.avatar);
+        requestBody.append("avatar", base64Avatar); // ✅ Now added after conversion
+      }
+
+      // ✅ Debugging: Log FormData before sending
+      // for (let [key, value] of requestBody.entries()) {
+      //   console.log(`${key}:`, value);
+      // }
+
+      const { data } = await axios.post(API_URL, requestBody, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       });
+
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      console.error("Error:", error.response?.data || error.message);
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
+
+
+
+
+
+
+
+
+
+
+
 
 // Initial state
 const userState = {
@@ -90,7 +146,21 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.error = action.payload;
-      });
+      })
+      // .addCase(loadUser.pending, (state) => {
+      //   state.loading = true;
+      //   state.error = null;
+      // })
+      // .addCase(loadUser.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.isAuthenticated = true;
+      //   state.user = action.payload;
+      // })
+      // .addCase(loadUser.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.user = null;
+      //   state.error = action.payload;
+      // });
   },
 });
 export default userSlice.reducer;
