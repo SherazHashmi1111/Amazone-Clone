@@ -11,13 +11,31 @@ export const loginUser = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
         withCredentials: true, // ✅ Include cookies for authentication
       });
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
+// ✅ Logout user function
+// ✅ Logout user function
+export const logoutUser = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const API_URL_DETAIL = "http://localhost:4000/api/v1/logout";
+      const response = await axios.get(API_URL_DETAIL, { 
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true, // ✅ Ensures cookies are sent
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+
 
 // ✅ Load user function (Fixed)
 export const loadUser = createAsyncThunk(
@@ -127,6 +145,19 @@ const userSlice = createSlice({
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
+        state.error = action.payload;
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null; // ✅ Clear user data
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },

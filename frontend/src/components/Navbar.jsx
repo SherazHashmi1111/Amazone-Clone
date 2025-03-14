@@ -4,7 +4,6 @@ import { IoLogoChrome } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { FaCartPlus } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import { useSelector } from "react-redux";
 import UserOption from "./layout/UserOption";
 
 function Navbar() {
@@ -12,10 +11,6 @@ function Navbar() {
   const toggleHandler = () => {
     setOpenNav(!openNav);
   };
-  const { isAuthenticated, user } = useSelector((state) => state.user);
-  console.log(user);
-  
-
   return (
     <header className="z-1000 flex w-full justify-between items-center h-[9vh] px-8 py-2  bg-white">
       <div className="">
@@ -58,11 +53,9 @@ function Navbar() {
           <NavLink to="/cart">
             <FaCartPlus className="text-3xl cursor-pointer hover:text-orange-900" />
           </NavLink>
-          {isAuthenticated ? <UserOption />:
             <NavLink to="/login">
               <CgProfile className="text-3xl cursor-pointer hover:text-orange-900" />
             </NavLink>
-          }
         </div>
 
         <ion-icon
